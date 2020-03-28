@@ -33,5 +33,21 @@
     withPlatformHealthOnlyShowOverride(platformHealthOnlyShowOverride):: self + { platformHealthOnlyShowOverride: platformHealthOnlyShowOverride },
     withTrafficGuards(trafficGuards):: self + if std.type(trafficGuards) == 'array' then { trafficGuards: trafficGuards } else { trafficGuards: [trafficGuards] },
     withUser(user):: self + { user: user },
+    withPermissions(permissions):: self + { permissions: permissions },
+    withRepoType(repoType):: self + { repoType: repoType },
+    withRepoProjectKey(repoProjectKey):: self + { repoProjectKey: repoProjectKey },
+    withRepoSlug(repoSlug):: self + { repoSlug: repoSlug },
   },
+  permissions:: {
+    withExecute(groups):: self + {
+      ["EXECUTE"]: groups
+    },
+    withWrite(groups):: self + {
+      ["WRITE"]: groups
+    },
+    withRead(groups):: self + {
+      ["READ"]: groups
+   },
+  },
+  local permissions = self.permissions,
 }
